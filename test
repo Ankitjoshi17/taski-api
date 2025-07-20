@@ -1,0 +1,18 @@
+from pydantic import BaseModel, Field, ValidationError
+
+class SecureDataRequest(BaseModel):
+    email: str = Field(..., pattern=r'^\S+@\S+\.\S+$')
+
+# Valid email test
+try:
+    obj = SecureDataRequest(email="test@example.com")
+    print("Valid:", obj)
+except ValidationError as e:
+    print("Validation error:", e)
+
+# Invalid email test
+try:
+    obj = SecureDataRequest(email="invalid-email")
+    print("Valid:", obj)
+except ValidationError as e:
+    print("Validation error:", e)
