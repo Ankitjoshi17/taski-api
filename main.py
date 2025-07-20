@@ -6,7 +6,7 @@ import requests
 from fastapi import FastAPI, Depends, HTTPException, Request
 from fastapi.security import OAuth2AuthorizationCodeBearer
 from fastapi.responses import JSONResponse
-from pydantic import BaseModel, Field, EmailStr
+from pydantic import BaseModel, Field, EmailStr # EmailStr requires 'email-validator'
 from jose import jwt, jwk
 from jose.exceptions import JWTError, JWKError
 from slowapi import Limiter
@@ -38,7 +38,7 @@ TOKEN_URL = os.getenv("TOKEN_URL", f"https://login.microsoftonline.com/{TENANT_I
 API_AUDIENCE = os.getenv("API_AUDIENCE", CLIENT_ID) # Audience for JWT validation
 JWKS_URL = f"https://login.microsoftonline.com/{TENANT_ID}/discovery/v2.0/keys" # URL to fetch public keys
 
-# --- FastAPI Initialization ---
+# --- FastAPI App Initialization ---
 # Initializes the FastAPI application with global OpenAPI (Swagger) metadata.
 # This metadata will be visible in the auto-generated documentation (/docs or /redoc).
 app = FastAPI(
@@ -127,6 +127,8 @@ class SecureDataRequest(BaseModel):
 
 # --- Simulated In-Memory User Database ---
 # A simple dictionary to simulate user data storage for the BOLA vulnerability.
+# IMPORTANT: Replace "YOUR_ALICE_OID_HERE" and "YOUR_BOB_OID_HERE" with the actual OIDs
+# you obtained from jwt.io for your Azure AD test users.
 fake_users = {
     "45069c09-5c39-4a31-b59f-faad1d5ec4b5": {"id": "45069c09-5c39-4a31-b59f-faad1d5ec4b5", "name": "Alice", "email": "alice@example.com"},
     "6244c043-f7e2-4311-9158-893e7d5434c2": {"id": "6244c043-f7e2-4311-9158-893e7d5434c2", "name": "Bob", "email": "bob@example.com", "sensitive_info": "bob_secret_project_details"}
@@ -158,7 +160,9 @@ async def submit_data(request: Request, data: SecureDataRequest, token: str = De
 
 @app.get("/users/{user_id}", summary="Simulated Broken Object Level Authorization (BOLA)", description="⚠️ **Intentionally Vulnerable:** This endpoint allows any authenticated user to retrieve data for *any* user_id by manipulating the path parameter. It demonstrates a Broken Object Level Authorization (BOLA) vulnerability as it lacks proper ownership checks.")
 @limiter.limit("5/minute") # Apply rate limiting to this endpoint
-async def get_user_data(request: Request, user_id: str, token: str = Depends(oauth2_scheme)):    payload = verify_token(token)
+async def get_user_data(request: Request, user_id: str, token: str = Depends(oauth2_scheme)):
+    # The 'request: Request' argument is crucial for slowapi's rate limiting
+    payload = verify_token(token)
     current_user_oid = payload.get("oid") # Assuming 'oid' is the unique identifier for the current user
 
     user = fake_users.get(user_id)
