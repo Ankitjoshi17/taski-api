@@ -158,8 +158,7 @@ async def submit_data(request: Request, data: SecureDataRequest, token: str = De
 
 @app.get("/users/{user_id}", summary="Simulated Broken Object Level Authorization (BOLA)", description="⚠️ **Intentionally Vulnerable:** This endpoint allows any authenticated user to retrieve data for *any* user_id by manipulating the path parameter. It demonstrates a Broken Object Level Authorization (BOLA) vulnerability as it lacks proper ownership checks.")
 @limiter.limit("5/minute") # Apply rate limiting to this endpoint
-async def get_user_data(user_id: str, token: str = Depends(oauth2_scheme)):
-    payload = verify_token(token)
+async def get_user_data(request: Request, user_id: str, token: str = Depends(oauth2_scheme)):    payload = verify_token(token)
     current_user_oid = payload.get("oid") # Assuming 'oid' is the unique identifier for the current user
 
     user = fake_users.get(user_id)
