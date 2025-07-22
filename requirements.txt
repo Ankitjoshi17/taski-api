@@ -4,4 +4,5 @@ python-jose
 requests
 pydantic
 slowapi
-email-validator 
+email-validator
+gunicorn
