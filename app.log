@@ -1,0 +1,68 @@
+2025-07-22 14:11:35,106 - ERROR - JWT verification failed: Unable to find an algorithm for key
+2025-07-22 14:13:40,886 - ERROR - JWT verification failed: Unable to find an algorithm for key
+2025-07-22 14:13:46,576 - ERROR - JWT verification failed: Unable to find an algorithm for key
+2025-07-22 14:13:47,193 - ERROR - JWT verification failed: Unable to find an algorithm for key
+2025-07-22 14:14:05,589 - ERROR - JWT verification failed: Unable to find an algorithm for key
+2025-07-22 14:14:15,176 - ERROR - JWT verification failed: Unable to find an algorithm for key
+2025-07-22 14:20:59,409 - ERROR - JWT verification failed: Unable to find an algorithm for key
+2025-07-22 14:21:00,397 - ERROR - JWT verification failed: Unable to find an algorithm for key
+2025-07-22 14:22:44,968 - ERROR - JWT verification failed: Unable to find an algorithm for key
+2025-07-22 14:22:58,320 - ERROR - JWT verification failed: Unable to find an algorithm for key
+2025-07-22 14:22:59,294 - ERROR - JWT verification failed: Unable to find an algorithm for key
+2025-07-22 14:23:00,032 - ERROR - JWT verification failed: Unable to find an algorithm for key
+2025-07-22 14:23:12,497 - ERROR - JWT verification failed: Unable to find an algorithm for key
+2025-07-22 14:27:39,520 - ERROR - JWT verification failed: Unable to find an algorithm for key
+2025-07-22 14:28:35,475 - ERROR - JWT verification failed: Unable to find an algorithm for key
+2025-07-22 14:28:36,390 - ERROR - JWT verification failed: Unable to find an algorithm for key
+2025-07-22 14:31:50,230 - ERROR - JWT verification failed: Unable to find an algorithm for key
+2025-07-22 14:31:51,401 - ERROR - JWT verification failed: Unable to find an algorithm for key
+2025-07-22 14:35:49,268 - ERROR - Unexpected auth error: module 'jose.jwt' has no attribute 'base64url_decode'
+2025-07-22 14:35:50,956 - ERROR - Unexpected auth error: module 'jose.jwt' has no attribute 'base64url_decode'
+2025-07-22 14:38:23,407 - ERROR - Unexpected auth error: module 'jose.jwt' has no attribute 'base64url_decode'
+2025-07-22 14:38:23,409 - ERROR - Traceback (most recent call last):
+  File "C:\Users\91956\OneDrive\Desktop\taski-api\main.py", line 85, in verify_token
+    if not public_key.verify(signed_message.encode(), jwt.base64url_decode(signature_b64.encode())):
+                                                      ^^^^^^^^^^^^^^^^^^^^
+AttributeError: module 'jose.jwt' has no attribute 'base64url_decode'
+
+2025-07-22 14:38:24,474 - ERROR - Unexpected auth error: module 'jose.jwt' has no attribute 'base64url_decode'
+2025-07-22 14:38:24,475 - ERROR - Traceback (most recent call last):
+  File "C:\Users\91956\OneDrive\Desktop\taski-api\main.py", line 85, in verify_token
+    if not public_key.verify(signed_message.encode(), jwt.base64url_decode(signature_b64.encode())):
+                                                      ^^^^^^^^^^^^^^^^^^^^
+AttributeError: module 'jose.jwt' has no attribute 'base64url_decode'
+
+2025-07-22 14:40:58,612 - ERROR - JWT verification failed: Unable to find an algorithm for key
+2025-07-22 14:40:59,856 - ERROR - JWT verification failed: Unable to find an algorithm for key
+2025-07-22 14:58:49,361 - ERROR - JWT verification failed: Unable to find an algorithm for key
+2025-07-22 14:58:51,025 - ERROR - JWT verification failed: Unable to find an algorithm for key
+2025-07-22 14:59:39,822 - ERROR - JWT verification failed: Error decoding token headers.
+2025-07-22 14:59:59,055 - ERROR - JWT verification failed: Unable to find an algorithm for key
+2025-07-22 15:00:17,951 - ERROR - JWT verification failed: Unable to find an algorithm for key
+2025-07-22 15:02:07,357 - ERROR - JWT verification failed: can only concatenate str (not "bytes") to str
+2025-07-22 15:02:08,193 - ERROR - JWT verification failed: can only concatenate str (not "bytes") to str
+2025-07-22 15:03:33,585 - ERROR - JWT verification failed: can only concatenate str (not "bytes") to str
+2025-07-22 15:03:34,548 - ERROR - JWT verification failed: can only concatenate str (not "bytes") to str
+2025-07-22 15:05:36,264 - ERROR - JWT verification failed: can only concatenate str (not "bytes") to str
+2025-07-22 15:05:37,059 - ERROR - JWT verification failed: can only concatenate str (not "bytes") to str
+2025-07-22 15:08:00,219 - ERROR - Unexpected auth error
+Traceback (most recent call last):
+  File "C:\Users\91956\OneDrive\Desktop\taski-api\main.py", line 81, in verify_token
+    public_key = jwk.construct(key, algorithm=key["alg"])
+                                              ~~~^^^^^^^
+KeyError: 'alg'
+2025-07-22 15:10:32,863 - ERROR - Unexpected auth error: 'alg'
+2025-07-22 15:10:33,854 - ERROR - Unexpected auth error: 'alg'
+2025-07-22 15:15:28,894 - ERROR - JWT verification failed: Invalid audience
+2025-07-22 15:17:06,925 - ERROR - JWT verification failed: Invalid audience
+2025-07-22 15:17:10,654 - ERROR - JWT verification failed: Invalid audience
+2025-07-22 15:18:20,300 - ERROR - JWT verification failed: Invalid audience
+2025-07-22 15:26:32,374 - ERROR - JWT verification failed: Invalid audience
+2025-07-22 15:28:05,062 - ERROR - JWT verification failed: Invalid audience
+2025-07-22 15:30:32,740 - ERROR - JWT verification failed: Invalid audience
+2025-07-22 15:36:11,603 - ERROR - JWT verification failed: Invalid audience
+2025-07-22 15:39:04,836 - ERROR - JWT verification failed: Unable to find an algorithm for key
+2025-07-22 15:40:23,378 - ERROR - JWT verification failed: Invalid audience
+2025-07-22 15:42:38,106 - WARNING - [BOLA] user1@ankitjoshiuni219gmail.onmicrosoft.com accessed user user2
+2025-07-22 15:42:49,252 - WARNING - [BOLA] user1@ankitjoshiuni219gmail.onmicrosoft.com accessed user user1
+2025-07-22 15:44:13,937 - WARNING - [BOLA] user1@ankitjoshiuni219gmail.onmicrosoft.com accessed user user2
