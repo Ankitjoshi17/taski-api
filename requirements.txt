@@ -1,8 +1,9 @@
 fastapi
 uvicorn
+gunicorn
 python-jose
 requests
 pydantic
 slowapi
 email-validator
-gunicorn
+python-dotenv
