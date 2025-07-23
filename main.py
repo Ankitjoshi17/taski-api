@@ -147,6 +147,25 @@ def mass_assign(data: dict):
 def legacy_info():
     return {"version": "v1", "message": "Deprecated endpoint"}
 
+@app.get("/leak-data", summary="Simulate Excessive Data Exposure")
+async def leak_data():
+    return {
+        "id": "user2",
+        "username": "bob",
+        "email": "bob@example.com",
+        "password": "pbkdf2_sha256$fake-hash",
+        "role": "Admin",
+        "auth_token": "xyz.jwt.token",
+        "debug_info": {
+            "request_ip": "192.168.1.5",
+            "processing_time": "120ms"
+        }
+    }
+
+@app.get("/bypass-auth")  # New simulated Broken Function Level Authorization (BFLA)
+def bypass_auth():
+    return {"message": "Accessed without any authentication or role validation"}
+
 @app.exception_handler(RateLimitExceeded)
 async def rate_limit_handler(request: Request, exc: RateLimitExceeded):
     return JSONResponse(status_code=429, content={"detail": "Rate limit exceeded"})
