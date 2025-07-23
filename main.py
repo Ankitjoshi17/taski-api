@@ -2,18 +2,19 @@
 import os
 import logging
 from logging.handlers import RotatingFileHandler
-import requests
 from fastapi import FastAPI, Depends, HTTPException, Request
 from fastapi.security import OAuth2AuthorizationCodeBearer
 from fastapi.responses import JSONResponse
 from pydantic import BaseModel, Field, EmailStr
 from jose import jwt, jwk
 from jose.exceptions import JWTError, JWKError
+from dotenv import load_dotenv
 from slowapi import Limiter
 from slowapi.util import get_remote_address
 from slowapi.errors import RateLimitExceeded
 from slowapi.middleware import SlowAPIMiddleware
-from dotenv import load_dotenv
+import base64
+import requests
 
 # Load environment variables
 load_dotenv()
@@ -36,105 +37,115 @@ AUTH_URL = f"https://login.microsoftonline.com/{TENANT_ID}/oauth2/v2.0/authorize
 TOKEN_URL = f"https://login.microsoftonline.com/{TENANT_ID}/oauth2/v2.0/token"
 JWKS_URL = f"https://login.microsoftonline.com/{TENANT_ID}/discovery/v2.0/keys"
 
-# FastAPI setup
-app = FastAPI(
-    title="Secure API with Azure AD",
-    description="API with OAuth2 and BOLA simulation",
-    version="1.0.0"
-)
+app = FastAPI(title="Secure API with OWASP Vulnerabilities")
 
-# Rate limiter
 limiter = Limiter(key_func=get_remote_address)
 app.state.limiter = limiter
 app.add_middleware(SlowAPIMiddleware)
 
-# OAuth2 Bearer config
 oauth2_scheme = OAuth2AuthorizationCodeBearer(
     authorizationUrl=AUTH_URL,
     tokenUrl=TOKEN_URL,
     scopes={"access_as_user": "Access API as user"}
 )
 
-# Simulated in-memory user DB
-fake_users = {
-    "user1": {"id": "user1", "username": "alice", "email": "alice@example.com"},
-    "user2": {"id": "user2", "username": "bob", "email": "bob@example.com"},
+# Simulated DB
+users_db = {
+    "user1": {"id": "user1", "username": "alice", "email": "alice@example.com", "role": "Admin", "password": "123456"},
+    "user2": {"id": "user2", "username": "bob", "email": "bob@example.com", "role": "User", "password": "password"},
 }
 
 # JWKS cache
 jwks = requests.get(JWKS_URL).json()
 
-# JWT verification
+# JWT Verification
 def verify_token(token: str):
     try:
         headers = jwt.get_unverified_header(token)
         kid = headers.get("kid")
         if not kid:
-            raise HTTPException(status_code=401, detail="Token missing 'kid' header")
+            raise HTTPException(status_code=401, detail="Token missing kid")
 
-        key_data = next((key for key in jwks["keys"] if key["kid"] == kid), None)
+        key_data = next((k for k in jwks["keys"] if k["kid"] == kid), None)
         if not key_data:
-            raise HTTPException(status_code=401, detail="Public key not found in JWKS")
+            raise HTTPException(status_code=401, detail="No matching key")
 
-        public_key = jwk.construct(key_data, algorithm="RS256")  # 🔧 Explicit algorithm
+        public_key = jwk.construct(key_data, algorithm="RS256")
+
+        message, encoded_sig = token.rsplit('.', 1)
+        decoded_sig = base64.urlsafe_b64decode(encoded_sig + "==")
+        if not public_key.verify(message.encode(), decoded_sig):
+            raise HTTPException(status_code=401, detail="Signature check failed")
 
         payload = jwt.decode(
             token,
-            public_key.to_pem().decode("utf-8"),
+            public_key.to_pem().decode(),
             algorithms=["RS256"],
-            audience="cc4ff219-81a0-4f5e-a3ca-bc92b67eea3c",
+            audience=API_AUDIENCE,
             issuer=f"https://login.microsoftonline.com/{TENANT_ID}/v2.0"
         )
         return payload
-
-    except (JWTError, JWKError) as e:
+    except Exception as e:
         logger.error(f"JWT verification failed: {e}")
         raise HTTPException(status_code=401, detail="Invalid token")
-    except Exception as e:
-        logger.error(f"Unexpected error: {e}")
-        raise HTTPException(status_code=401, detail="Internal auth error")
 
-# Request model
+# Schemas
 class SecureDataRequest(BaseModel):
-    username: str = Field(..., min_length=3, max_length=50)
+    username: str
     email: EmailStr
     comment: str | None = Field(None, max_length=500)
 
-# Routes
-@app.get("/", summary="Health check")
-def root():
-    return {"message": "API is running"}
+class MassAssignmentModel(BaseModel):
+    username: str
+    email: EmailStr
+    is_admin: bool | None = False  # Attacker might try to manipulate this
 
-@app.get("/secure-data", summary="Admin-only secure data")
+@app.get("/")
+def root():
+    return {"message": "API running"}
+
+@app.get("/secure-data")
 @limiter.limit("5/minute")
-async def secure_data(request: Request, token: str = Depends(oauth2_scheme)):
+def secure_data(request: Request, token: str = Depends(oauth2_scheme)):
     payload = verify_token(token)
     roles = payload.get("roles", [])
     if "Admin" not in roles:
         raise HTTPException(status_code=403, detail="Admin role required")
-    logger.info(f"{payload.get('preferred_username')} accessed secure data")
-    return {"message": "Secure data accessed", "user": payload.get("preferred_username")}
+    return {"message": "Secure data", "user": payload.get("preferred_username")}
 
-@app.post("/submit-data", summary="Submit user data")
+@app.post("/submit-data")
 @limiter.limit("10/minute")
-async def submit_data(request: Request, data: SecureDataRequest, token: str = Depends(oauth2_scheme)):
+def submit_data(request: Request, data: SecureDataRequest, token: str = Depends(oauth2_scheme)):
     payload = verify_token(token)
-    logger.info(f"{payload.get('preferred_username')} submitted: {data.dict()}")
-    return {"message": "Data received", "submitted": data.dict()}
+    return {"message": "Data submitted", "data": data.dict()}
 
-@app.get("/users/{user_id}", summary="Simulate BOLA vulnerability")
+@app.get("/users/{user_id}")
 @limiter.limit("5/minute")
-async def get_user(request: Request, user_id: str, token: str = Depends(oauth2_scheme)):
+def get_user(request: Request, user_id: str, token: str = Depends(oauth2_scheme)):
     payload = verify_token(token)
-    user = fake_users.get(user_id)
+    user = users_db.get(user_id)
     if not user:
         raise HTTPException(status_code=404, detail="User not found")
-    logger.warning(f"[BOLA] {payload.get('preferred_username')} accessed user {user_id}")
-    return user
+    return user  # BOLA vulnerability simulated here
 
-@app.get("/openapi.json", include_in_schema=False)
-async def openapi_json():
-    return app.openapi()
+@app.post("/login")  # Broken User Authentication (no rate limit, poor validation)
+def login(data: dict):
+    user = users_db.get(data.get("username"))
+    if user and user["password"] == data.get("password"):
+        return {"message": "Logged in"}
+    raise HTTPException(status_code=401, detail="Invalid credentials")
+
+@app.get("/public-profile")  # Excessive Data Exposure
+def public_profile():
+    return users_db  # returns all user data (including password!) without filtering
+
+@app.post("/mass-assign")  # Mass Assignment
+def mass_assign(data: dict):
+    return {"created_user": data}  # blindly trusts incoming keys
+
+@app.get("/v1/legacy-info")  # Improper Asset Management
+def legacy_info():
+    return {"version": "v1", "message": "Deprecated endpoint"}
 
 @app.exception_handler(RateLimitExceeded)
 async def rate_limit_handler(request: Request, exc: RateLimitExceeded):
