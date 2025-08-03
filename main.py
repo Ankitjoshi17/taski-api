@@ -1,4 +1,4 @@
-# main.py
+# main.py (patched for Mass Assignment)
 import os
 import logging
 from logging.handlers import RotatingFileHandler
@@ -28,7 +28,7 @@ logger = logging.getLogger(__name__)
 logger.setLevel(logging.INFO)
 logger.addHandler(log_handler)
 
-# Environment config
+# Env config
 TENANT_ID = os.getenv("TENANT_ID")
 CLIENT_ID = os.getenv("CLIENT_ID")
 API_AUDIENCE = os.getenv("API_AUDIENCE", CLIENT_ID)
@@ -37,7 +37,7 @@ AUTH_URL = f"https://login.microsoftonline.com/{TENANT_ID}/oauth2/v2.0/authorize
 TOKEN_URL = f"https://login.microsoftonline.com/{TENANT_ID}/oauth2/v2.0/token"
 JWKS_URL = f"https://login.microsoftonline.com/{TENANT_ID}/discovery/v2.0/keys"
 
-app = FastAPI(title="Secure API with OWASP Vulnerabilities")
+app = FastAPI(title="Secure API with OWASP Patches")
 
 limiter = Limiter(key_func=get_remote_address)
 app.state.limiter = limiter
@@ -58,7 +58,7 @@ users_db = {
 # JWKS cache
 jwks = requests.get(JWKS_URL).json()
 
-# JWT Verification
+# JWT verification
 def verify_token(token: str):
     try:
         headers = jwt.get_unverified_header(token)
@@ -89,16 +89,18 @@ def verify_token(token: str):
         logger.error(f"JWT verification failed: {e}")
         raise HTTPException(status_code=401, detail="Invalid token")
 
-# Schemas
+# Models
 class SecureDataRequest(BaseModel):
     username: str
     email: EmailStr
     comment: str | None = Field(None, max_length=500)
 
-class MassAssignmentModel(BaseModel):
+class SafeUserCreate(BaseModel):
     username: str
     email: EmailStr
-    is_admin: bool | None = False  # Attacker might try to manipulate this
+
+    class Config:
+        extra = "forbid"  # Prevent any unexpected fields
 
 @app.get("/")
 def root():
@@ -126,29 +128,29 @@ def get_user(request: Request, user_id: str, token: str = Depends(oauth2_scheme)
     user = users_db.get(user_id)
     if not user:
         raise HTTPException(status_code=404, detail="User not found")
-    return user  # BOLA vulnerability simulated here
+    return user  # BOLA vulnerability (intended)
 
-@app.post("/login")  # Broken User Authentication (no rate limit, poor validation)
+@app.post("/login")
 def login(data: dict):
     user = users_db.get(data.get("username"))
     if user and user["password"] == data.get("password"):
         return {"message": "Logged in"}
     raise HTTPException(status_code=401, detail="Invalid credentials")
 
-@app.get("/public-profile")  # Excessive Data Exposure
+@app.get("/public-profile")
 def public_profile():
-    return users_db  # returns all user data (including password!) without filtering
+    return users_db  # Excessive exposure (intended)
 
-@app.post("/mass-assign")  # Mass Assignment
-def mass_assign(data: dict):
-    return {"created_user": data}  # blindly trusts incoming keys
+@app.post("/mass-assign")  
+def secure_mass_assignment(data: SafeUserCreate):
+    return {"created_user": data.dict()}
 
-@app.get("/v1/legacy-info")  # Improper Asset Management
+@app.get("/v1/legacy-info")
 def legacy_info():
     return {"version": "v1", "message": "Deprecated endpoint"}
 
-@app.get("/leak-data", summary="Simulate Excessive Data Exposure")
-async def leak_data():
+@app.get("/leak-data")
+def leak_data():
     return {
         "id": "user2",
         "username": "bob",
@@ -161,10 +163,6 @@ async def leak_data():
             "processing_time": "120ms"
         }
     }
-
-@app.get("/bypass-auth")  # New simulated Broken Function Level Authorization (BFLA)
-def bypass_auth():
-    return {"message": "Accessed without any authentication or role validation"}
 
 @app.exception_handler(RateLimitExceeded)
 async def rate_limit_handler(request: Request, exc: RateLimitExceeded):
