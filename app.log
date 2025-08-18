@@ -66,3 +66,5 @@ KeyError: 'alg'
 2025-07-22 15:42:38,106 - WARNING - [BOLA] user1@ankitjoshiuni219gmail.onmicrosoft.com accessed user user2
 2025-07-22 15:42:49,252 - WARNING - [BOLA] user1@ankitjoshiuni219gmail.onmicrosoft.com accessed user user1
 2025-07-22 15:44:13,937 - WARNING - [BOLA] user1@ankitjoshiuni219gmail.onmicrosoft.com accessed user user2
+2025-08-17 21:50:29,442 - INFO - JWKS fetched/refreshed.
+2025-08-18 23:14:42,518 - INFO - JWKS fetched/refreshed.
