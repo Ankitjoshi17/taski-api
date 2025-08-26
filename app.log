@@ -68,3 +68,88 @@ KeyError: 'alg'
 2025-07-22 15:44:13,937 - WARNING - [BOLA] user1@ankitjoshiuni219gmail.onmicrosoft.com accessed user user2
 2025-08-17 21:50:29,442 - INFO - JWKS fetched/refreshed.
 2025-08-18 23:14:42,518 - INFO - JWKS fetched/refreshed.
+2025-08-24 19:26:29,241 - INFO - JWKS fetched/refreshed.
+2025-08-24 20:22:56,718 - ERROR - JWT verification failed: Unable to find an algorithm for key
+2025-08-24 20:24:36,321 - ERROR - JWT verification failed: Unable to find an algorithm for key
+2025-08-24 20:24:37,028 - ERROR - JWT verification failed: Unable to find an algorithm for key
+2025-08-24 20:25:09,752 - ERROR - JWT verification failed: Unable to find an algorithm for key
+2025-08-24 20:37:23,976 - ERROR - JWT verification failed: Unable to find an algorithm for key
+2025-08-24 20:37:24,899 - ERROR - JWT verification failed: Unable to find an algorithm for key
+2025-08-24 20:38:14,634 - ERROR - JWT verification failed: Unable to find an algorithm for key
+2025-08-24 20:38:29,518 - ERROR - JWT verification failed: Unable to find an algorithm for key
+2025-08-24 20:39:20,245 - ERROR - JWT verification failed: Unable to find an algorithm for key
+2025-08-24 20:39:24,977 - ERROR - JWT verification failed: Unable to find an algorithm for key
+2025-08-24 20:39:58,267 - ERROR - JWT verification failed: Unable to find an algorithm for key
+2025-08-24 20:40:41,161 - ERROR - JWT verification failed: Unable to find an algorithm for key
+2025-08-24 20:40:43,146 - ERROR - JWT verification failed: Unable to find an algorithm for key
+2025-08-24 20:40:45,758 - ERROR - JWT verification failed: Unable to find an algorithm for key
+2025-08-24 20:50:20,883 - ERROR - JWT verification failed: Unable to find an algorithm for key
+2025-08-24 20:50:23,607 - ERROR - JWT verification failed: Unable to find an algorithm for key
+2025-08-24 20:52:40,319 - ERROR - JWT verification failed: Unable to find an algorithm for key
+2025-08-24 20:52:43,322 - ERROR - JWT verification failed: Unable to find an algorithm for key
+2025-08-24 21:03:23,179 - WARNING - [BOLA-VULN] user1@ankitjoshiuni219gmail.onmicrosoft.com accessed user2
+2025-08-24 22:06:25,572 - WARNING - [BOLA-VULN] user1@ankitjoshiuni219gmail.onmicrosoft.com accessed user1
+2025-08-24 22:06:28,572 - WARNING - [BOLA-VULN] user1@ankitjoshiuni219gmail.onmicrosoft.com accessed user2
+2025-08-24 22:08:27,358 - INFO - user1@ankitjoshiuni219gmail.onmicrosoft.com submitted data {'username': 'testuser', 'email': 'test@example.com', 'comment': 'Hello World'}
+2025-08-24 22:15:32,765 - WARNING - [BOLA-VULN] user1@ankitjoshiuni219gmail.onmicrosoft.com accessed user2
+2025-08-24 22:15:32,787 - WARNING - [BOLA-VULN] user1@ankitjoshiuni219gmail.onmicrosoft.com accessed user2
+2025-08-24 22:15:32,809 - WARNING - [BOLA-VULN] user1@ankitjoshiuni219gmail.onmicrosoft.com accessed user2
+2025-08-24 22:15:32,829 - WARNING - [BOLA-VULN] user1@ankitjoshiuni219gmail.onmicrosoft.com accessed user2
+2025-08-24 22:15:32,850 - WARNING - [BOLA-VULN] user1@ankitjoshiuni219gmail.onmicrosoft.com accessed user2
+2025-08-24 22:15:33,012 - INFO - user1@ankitjoshiuni219gmail.onmicrosoft.com submitted data {'username': 'testuser', 'email': 'test@example.com', 'comment': 'http://www.google.com/'}
+2025-08-24 22:15:33,036 - INFO - user1@ankitjoshiuni219gmail.onmicrosoft.com submitted data {'username': 'testuser', 'email': 'test@example.com', 'comment': 'http://www.google.com:80/'}
+2025-08-24 22:15:33,065 - INFO - user1@ankitjoshiuni219gmail.onmicrosoft.com submitted data {'username': 'testuser', 'email': 'test@example.com', 'comment': 'http://www.google.com'}
+2025-08-24 22:15:33,098 - INFO - user1@ankitjoshiuni219gmail.onmicrosoft.com submitted data {'username': 'testuser', 'email': 'test@example.com', 'comment': 'http://www.google.com/search?q=ZAP'}
+2025-08-24 22:15:33,118 - INFO - user1@ankitjoshiuni219gmail.onmicrosoft.com submitted data {'username': 'testuser', 'email': 'test@example.com', 'comment': 'http://www.google.com:80/search?q=ZAP'}
+2025-08-24 22:15:33,133 - INFO - user1@ankitjoshiuni219gmail.onmicrosoft.com submitted data {'username': 'testuser', 'email': 'test@example.com', 'comment': 'www.google.com/'}
+2025-08-24 22:15:33,148 - INFO - user1@ankitjoshiuni219gmail.onmicrosoft.com submitted data {'username': 'testuser', 'email': 'test@example.com', 'comment': 'www.google.com:80/'}
+2025-08-24 22:15:33,158 - INFO - user1@ankitjoshiuni219gmail.onmicrosoft.com submitted data {'username': 'testuser', 'email': 'test@example.com', 'comment': 'www.google.com'}
+2025-08-24 22:15:33,165 - INFO - user1@ankitjoshiuni219gmail.onmicrosoft.com submitted data {'username': 'testuser', 'email': 'test@example.com', 'comment': 'www.google.com/search?q=ZAP'}
+2025-08-24 22:15:33,171 - INFO - user1@ankitjoshiuni219gmail.onmicrosoft.com submitted data {'username': 'testuser', 'email': 'test@example.com', 'comment': 'www.google.com:80/search?q=ZAP'}
+2025-08-24 22:17:21,380 - INFO - user1@ankitjoshiuni219gmail.onmicrosoft.com submitted data {'username': 'thishouldnotexistandhopefullyitwillnot', 'email': 'test@example.com', 'comment': 'Hello World'}
+2025-08-24 22:17:21,380 - INFO - user1@ankitjoshiuni219gmail.onmicrosoft.com submitted data {'username': 'thishouldnotexistandhopefullyitwillnot', 'email': 'zaproxy@example.com', 'comment': 'Zaproxy dolore alias impedit expedita quisquam.'}
+2025-08-24 22:17:21,416 - WARNING - [BOLA-VULN] user1@ankitjoshiuni219gmail.onmicrosoft.com accessed user2
+2025-08-24 22:17:21,434 - WARNING - [BOLA-VULN] user1@ankitjoshiuni219gmail.onmicrosoft.com accessed user2
+2025-08-24 22:17:21,453 - WARNING - [BOLA-VULN] user1@ankitjoshiuni219gmail.onmicrosoft.com accessed user2
+2025-08-24 22:17:21,470 - WARNING - [BOLA-VULN] user1@ankitjoshiuni219gmail.onmicrosoft.com accessed user2
+2025-08-24 22:17:21,486 - WARNING - [BOLA-VULN] user1@ankitjoshiuni219gmail.onmicrosoft.com accessed user2
+2025-08-24 22:17:21,725 - INFO - user1@ankitjoshiuni219gmail.onmicrosoft.com submitted data {'username': 'testuser', 'email': 'test@example.com', 'comment': 'c:/Windows/system.ini'}
+2025-08-24 22:17:21,754 - INFO - user1@ankitjoshiuni219gmail.onmicrosoft.com submitted data {'username': 'testuser', 'email': 'test@example.com', 'comment': '../../../../../../../../../../../../../../../../Windows/system.ini'}
+2025-08-24 22:17:21,779 - INFO - user1@ankitjoshiuni219gmail.onmicrosoft.com submitted data {'username': 'testuser', 'email': 'test@example.com', 'comment': 'c:\\Windows\\system.ini'}
+2025-08-24 22:17:21,802 - INFO - user1@ankitjoshiuni219gmail.onmicrosoft.com submitted data {'username': 'testuser', 'email': 'test@example.com', 'comment': '..\\..\\..\\..\\..\\..\\..\\..\\..\\..\\..\\..\\..\\..\\..\\..\\Windows\\system.ini'}
+2025-08-24 22:17:21,826 - INFO - user1@ankitjoshiuni219gmail.onmicrosoft.com submitted data {'username': 'testuser', 'email': 'test@example.com', 'comment': '/etc/passwd'}
+2025-08-24 22:17:21,849 - INFO - user1@ankitjoshiuni219gmail.onmicrosoft.com submitted data {'username': 'testuser', 'email': 'test@example.com', 'comment': '../../../../../../../../../../../../../../../../etc/passwd'}
+2025-08-24 22:17:21,873 - INFO - user1@ankitjoshiuni219gmail.onmicrosoft.com submitted data {'username': 'testuser', 'email': 'test@example.com', 'comment': '/'}
+2025-08-24 22:17:21,897 - INFO - user1@ankitjoshiuni219gmail.onmicrosoft.com submitted data {'username': 'testuser', 'email': 'test@example.com', 'comment': '../../../../../../../../../../../../../../../../'}
+2025-08-24 22:18:44,678 - WARNING - [BOLA-VULN] user1@ankitjoshiuni219gmail.onmicrosoft.com accessed user2
+2025-08-24 22:18:44,701 - WARNING - [BOLA-VULN] user1@ankitjoshiuni219gmail.onmicrosoft.com accessed user2
+2025-08-24 22:18:44,732 - WARNING - [BOLA-VULN] user1@ankitjoshiuni219gmail.onmicrosoft.com accessed user2
+2025-08-24 22:18:44,758 - WARNING - [BOLA-VULN] user1@ankitjoshiuni219gmail.onmicrosoft.com accessed user2
+2025-08-24 22:18:44,784 - WARNING - [BOLA-VULN] user1@ankitjoshiuni219gmail.onmicrosoft.com accessed user2
+2025-08-24 22:18:44,861 - INFO - user1@ankitjoshiuni219gmail.onmicrosoft.com submitted data {'username': 'testuser', 'email': 'test@example.com', 'comment': "Hello World WAITFOR DELAY '0:0:15' -- "}
+2025-08-24 22:18:44,891 - INFO - user1@ankitjoshiuni219gmail.onmicrosoft.com submitted data {'username': 'testuser', 'email': 'test@example.com', 'comment': "Hello World' WAITFOR DELAY '0:0:15' -- "}
+2025-08-24 22:18:44,930 - INFO - user1@ankitjoshiuni219gmail.onmicrosoft.com submitted data {'username': 'testuser', 'email': 'test@example.com', 'comment': 'Hello World" WAITFOR DELAY \'0:0:15\' -- '}
+2025-08-24 22:18:44,955 - INFO - user1@ankitjoshiuni219gmail.onmicrosoft.com submitted data {'username': 'testuser', 'email': 'test@example.com', 'comment': "Hello World) WAITFOR DELAY '0:0:15' -- "}
+2025-08-24 22:18:44,977 - INFO - user1@ankitjoshiuni219gmail.onmicrosoft.com submitted data {'username': 'testuser', 'email': 'test@example.com', 'comment': "Hello World) ' WAITFOR DELAY '0:0:15' -- "}
+2025-08-24 22:18:45,005 - INFO - user1@ankitjoshiuni219gmail.onmicrosoft.com submitted data {'username': 'testuser', 'email': 'test@example.com', 'comment': 'Hello World) " WAITFOR DELAY \'0:0:15\' -- '}
+2025-08-24 22:18:45,032 - INFO - user1@ankitjoshiuni219gmail.onmicrosoft.com submitted data {'username': 'testuser', 'email': 'test@example.com', 'comment': "Hello World)) WAITFOR DELAY '0:0:15' -- "}
+2025-08-24 22:18:45,061 - INFO - user1@ankitjoshiuni219gmail.onmicrosoft.com submitted data {'username': 'testuser', 'email': 'test@example.com', 'comment': "Hello World)) ' WAITFOR DELAY '0:0:15' -- "}
+2025-08-24 22:18:45,098 - INFO - user1@ankitjoshiuni219gmail.onmicrosoft.com submitted data {'username': 'testuser', 'email': 'test@example.com', 'comment': 'Hello World)) " WAITFOR DELAY \'0:0:15\' -- '}
+2025-08-24 22:18:45,122 - INFO - user1@ankitjoshiuni219gmail.onmicrosoft.com submitted data {'username': 'testuser', 'email': 'test@example.com', 'comment': "Hello World) WAITFOR DELAY '0:0:15' ("}
+2025-08-24 22:35:33,854 - WARNING - [BOLA-VULN] user1@ankitjoshiuni219gmail.onmicrosoft.com accessed user2
+2025-08-24 22:52:56,071 - INFO - alice@example.com accessed /secure-data
+2025-08-24 22:56:00,579 - INFO - alice@example.com accessed /secure-data
+2025-08-24 22:56:52,678 - INFO - alice@example.com accessed /secure-data
+2025-08-24 22:56:52,706 - INFO - alice@example.com accessed /secure-data
+2025-08-24 22:56:52,716 - INFO - alice@example.com accessed /secure-data
+2025-08-24 22:56:52,736 - INFO - alice@example.com accessed /secure-data
+2025-08-24 22:56:52,928 - INFO - alice@example.com submitted data {'username': 'thishouldnotexistandhopefullyitwillnot', 'email': 'zaproxy@example.com', 'comment': 'Zaproxy dolore alias impedit expedita quisquam.'}
+2025-08-24 22:56:53,827 - INFO - alice@example.com submitted data {'username': '0W45pz4p', 'email': 'zaproxy@example.com', 'comment': 'Zaproxy dolore alias impedit expedita quisquam.'}
+2025-08-24 22:56:53,897 - INFO - alice@example.com submitted data {'username': 'zApPX2sS', 'email': 'zaproxy@example.com', 'comment': 'Zaproxy dolore alias impedit expedita quisquam.'}
+2025-08-24 22:57:09,823 - INFO - alice@example.com accessed /secure-data
+2025-08-24 22:57:10,463 - INFO - alice@example.com accessed /secure-data
+2025-08-24 22:57:13,689 - INFO - alice@example.com accessed /secure-data
+2025-08-24 22:57:13,691 - INFO - alice@example.com accessed /secure-data
+2025-08-24 22:57:14,025 - INFO - alice@example.com accessed /secure-data
+2025-08-24 22:57:33,021 - INFO - alice@example.com submitted data {'username': 'get-help', 'email': 'zaproxy@example.com', 'comment': 'Zaproxy dolore alias impedit expedita quisquam.'}
+2025-08-24 22:57:34,157 - INFO - alice@example.com submitted data {'username': 'ZAP', 'email': 'zaproxy@example.com', 'comment': 'Zaproxy dolore alias impedit expedita quisquam.'}
