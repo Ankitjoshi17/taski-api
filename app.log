@@ -154,3 +154,6 @@ KeyError: 'alg'
 2025-08-24 22:57:33,021 - INFO - alice@example.com submitted data {'username': 'get-help', 'email': 'zaproxy@example.com', 'comment': 'Zaproxy dolore alias impedit expedita quisquam.'}
 2025-08-24 22:57:34,157 - INFO - alice@example.com submitted data {'username': 'ZAP', 'email': 'zaproxy@example.com', 'comment': 'Zaproxy dolore alias impedit expedita quisquam.'}
 2025-08-26 18:18:07,081 - INFO - JWKS refreshed
+2025-09-04 16:06:13,138 - INFO - LOGIN ATTEMPT user=titxwf61ehsls6k3fc8rz0a ip=127.0.0.1
+2025-09-04 16:06:14,560 - INFO - LOGIN ATTEMPT user=titxwf61ehsls6k3fc8rz0a ip=127.0.0.1
+2025-09-04 16:06:17,027 - INFO - LOGIN ATTEMPT user=titxwf61ehsls6k3fc8rz0a ip=127.0.0.1
